@@ -9,13 +9,15 @@
       ];
     }
   )
-, buildGoApplication ? pkgs.buildGoApplication
+  , buildGoApplication ? pkgs.buildGoApplication
 }:
-
-pkgs.buildGoApplication {
-  pname = "TODO";
-  version = "0.0.0"; # TODO: update mechanism
-  pwd = ./.;
-  src = ./.;
-  modules = ./gomod2nix.toml;
-}
+let
+  filters = import ./nix/filter_filesets.nix { inherit (pkgs) lib; };
+in
+  pkgs.buildGoApplication {
+    pname = "TODO";
+    version = "0.0.0"; # TODO: update mechanism
+    pwd = ./.;
+    src = filters.go ./.;
+    modules = ./gomod2nix.toml;
+  }
