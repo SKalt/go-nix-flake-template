@@ -2,8 +2,7 @@
   description = "TODO";
   inputs = {
     flake-utils.url = "github:numtide/flake-utils"; # TODO: pin
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    # TODO: pin once go 1.21 lands in stable
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
     # FIXME: eliminate reliance on GitHub
     gomod2nix = {
       url = "github:nix-community/gomod2nix";
@@ -23,7 +22,7 @@
         packages.default = pkgs.callPackage ./. { };
         devShell = pkgs.mkShell {
           nativeBuildInputs = with pkgs; [
-            go_1_21
+            go # 1.21
           ];
           buildInputs = with pkgs; [
             # nix support
